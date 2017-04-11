@@ -1,4 +1,4 @@
-package codejam.year2017.a;
+package codejam.year2017;
 
 import static org.junit.Assert.*;
 
@@ -7,8 +7,9 @@ import java.util.*;
 import org.junit.*;
 
 import codejam.*;
+import codejam.year2017.a.*;
 
-public class AcceptanceTest {
+public class ProblemAAcceptanceTest {
 	private Application<AProblem, AResult> tested;
 
 	@Before

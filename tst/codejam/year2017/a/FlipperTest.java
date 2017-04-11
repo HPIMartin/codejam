@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
+import codejam.year2017.a.*;
 import codejam.year2017.a.AProblem.*;
 
 public class FlipperTest {

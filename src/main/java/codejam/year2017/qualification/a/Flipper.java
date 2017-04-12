@@ -1,9 +1,9 @@
-package codejam.year2017.a;
+package codejam.year2017.qualification.a;
 
 import java.util.*;
 
 import codejam.*;
-import codejam.year2017.a.AProblem.*;
+import codejam.year2017.qualification.a.AProblem.*;
 
 public class Flipper implements Logic<AProblem, AResult> {
 	private Side[] row;

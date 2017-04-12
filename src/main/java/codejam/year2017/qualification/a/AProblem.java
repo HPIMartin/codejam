@@ -1,4 +1,4 @@
-package codejam.year2017.a;
+package codejam.year2017.qualification.a;
 
 import codejam.model.*;
 

@@ -1,4 +1,4 @@
-package codejam.year2017;
+package codejam.year2017.qualification;
 
 import static org.junit.Assert.*;
 
@@ -7,7 +7,7 @@ import java.util.*;
 import org.junit.*;
 
 import codejam.*;
-import codejam.year2017.a.*;
+import codejam.year2017.qualification.a.*;
 
 public class ProblemAAcceptanceTest {
 	private Application<AProblem, AResult> tested;

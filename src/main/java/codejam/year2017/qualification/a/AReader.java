@@ -1,7 +1,7 @@
-package codejam.year2017.a;
+package codejam.year2017.qualification.a;
 
-import codejam.*;
-import codejam.year2017.a.AProblem.*;
+import codejam.InputReader;
+import codejam.year2017.qualification.a.AProblem.Side;
 
 public class AReader extends InputReader<AProblem> {
 	public AReader() {

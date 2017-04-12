@@ -1,4 +1,14 @@
-.settings
-.classpath
-.project
-bin
+# Eclipse
+/.settings/
+/.classpath
+/.project
+
+# Gradle
+/bin/
+/build/
+
+# macOS
+.DS_STORE
+
+# Windows
+Thumbs.db

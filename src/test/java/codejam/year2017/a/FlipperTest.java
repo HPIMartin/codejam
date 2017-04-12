@@ -1,11 +1,11 @@
 package codejam.year2017.a;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import codejam.year2017.a.*;
-import codejam.year2017.a.AProblem.*;
+import codejam.year2017.a.AProblem.Side;
 
 public class FlipperTest {
 	private Flipper tested;

@@ -6,15 +6,34 @@ public class Number {
 	public static Number fromString(String numberString) {
 		numberString = removeLeadingZeroes(numberString);
 		Digit[] digits = new Digit[numberString.length()];
-		for (int i = 0; i < numberString.length(); i++) {
-			String digit = numberString.substring(i, i + 1);
-			if (i == 0)
-				digits[i] = Digit.createFirstDigit(DigitValue.fromString(digit));
-			else
-				digits[i] = digits[i - 1].createNextDigit(DigitValue.fromString(digit));
-		}
+
+		fillDigits(numberString, digits);
 
 		return new Number(digits);
+	}
+
+	private static void fillDigits(String numberString, Digit[] digits) {
+		for (int index = 0; index < numberString.length(); index++) {
+			String stringRepresentation = numberString.substring(index, index + 1);
+			digits[index] = getDigit(digits, index, stringRepresentation);
+		}
+	}
+
+	private static Digit getDigit(Digit[] digits, int index, String stringRepresentation) {
+		if (index == 0)
+			return getFirstDigit(stringRepresentation);
+		Digit formerDigit = digits[index - 1];
+		return getFollowingDigit(formerDigit, index, stringRepresentation);
+	}
+
+	private static Digit getFirstDigit(String stringRepresentation) {
+		DigitValue digitValue = DigitValue.fromString(stringRepresentation);
+		return Digit.createFirstDigit(digitValue);
+	}
+
+	private static Digit getFollowingDigit(Digit formerDigit, int index, String stringRepresentation) {
+		DigitValue digitValue = DigitValue.fromString(stringRepresentation);
+		return formerDigit.createNextDigit(digitValue);
 	}
 
 	private static String removeLeadingZeroes(String line) {
@@ -35,5 +54,4 @@ public class Number {
 		String string = buffer.toString();
 		return removeLeadingZeroes(string);
 	}
-
 }

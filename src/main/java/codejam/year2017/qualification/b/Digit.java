@@ -1,7 +1,6 @@
 package codejam.year2017.qualification.b;
 
 public class Digit {
-
 	public static Digit createFirstDigit(DigitValue value) {
 		return new Digit(null, value);
 	}
@@ -41,5 +40,4 @@ public class Digit {
 	public boolean isGreaterThan(Digit digit) {
 		return value.compareTo(digit.value) > 0;
 	}
-
 }

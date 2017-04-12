@@ -13,7 +13,7 @@ import codejam.year2017.qualification.a.AProblem.Side;
 public class FlipperTest {
 	private Flipper tested;
 	private AProblem problem;
-	private AResult solution;
+	private AResult result;
 
 	@Before
 	public void setup() {
@@ -53,16 +53,16 @@ public class FlipperTest {
 	}
 
 	private void act() {
-		solution = tested.apply(problem);
+		result = tested.apply(problem);
 	}
 
 	private void isPossible(int flips) {
-		assertEquals(problem, solution.problem);
-		assertEquals(String.valueOf(flips), solution.getCaseResult());
+		assertEquals(problem, result.problem);
+		assertEquals(String.valueOf(flips), result.getCaseResult());
 	}
 
 	private void isImpossible() {
-		assertEquals(problem, solution.problem);
-		assertEquals("IMPOSSIBLE", solution.getCaseResult());
+		assertEquals(problem, result.problem);
+		assertEquals("IMPOSSIBLE", result.getCaseResult());
 	}
 }

@@ -6,6 +6,7 @@
 # Gradle
 /bin/
 /build/
+.gradle
 
 # macOS
 .DS_STORE

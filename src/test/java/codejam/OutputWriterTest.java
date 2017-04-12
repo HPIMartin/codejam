@@ -6,16 +6,16 @@ import java.util.*;
 
 import org.junit.*;
 
-import codejam.model.*;
+import codejam.model.CaseResult;
 
 public class OutputWriterTest {
-	private OutputWriter<TestResult> tested;
-	private List<TestResult> input;
+	private OutputWriter tested;
+	private List<CaseResult<?>> input;
 	private List<String> result;
 
 	@Before
 	public void setUp() {
-		tested = new OutputWriter<>();
+		tested = new OutputWriter();
 		input = new ArrayList<>();
 	}
 

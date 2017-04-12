@@ -2,17 +2,17 @@ package codejam;
 
 import static java.util.stream.Collectors.*;
 
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.stream.Stream;
 
-import codejam.model.*;
+import codejam.model.CaseResult;
 
-public class OutputWriter<R extends CaseResult<?>> {
-	public List<String> write(Stream<R> result) {
+public class OutputWriter {
+	public List<String> write(Stream<CaseResult<?>> result) {
 		return result.sorted(this::compare).map(this::create).collect(toList());
 	}
 
-	private String create(R result) {
+	private String create(CaseResult<?> result) {
 		int caseNumber = result.problem.index + 1;
 		return String.format("Case #%d: %s", caseNumber, result.getCaseResult());
 	}

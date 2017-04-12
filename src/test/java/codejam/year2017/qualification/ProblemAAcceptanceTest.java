@@ -14,7 +14,7 @@ public class ProblemAAcceptanceTest {
 
 	@Before
 	public void setup() {
-		tested = new Application<>(new AReader(), Flipper::new, new OutputWriter<AResult>());
+		tested = new Application<>(new AReader(), Flipper::new, new OutputWriter());
 	}
 
 	@Test

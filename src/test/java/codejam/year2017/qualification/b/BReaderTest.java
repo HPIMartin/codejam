@@ -14,15 +14,29 @@ public class BReaderTest {
 	}
 
 	@Test
-	public void readsSingleCase() {
-		read(tested);
-
-		assertEquals("123", result.number);
+	public void correctIndex() {
+		read("");
 		assertEquals(0, result.index);
 	}
 
-	private void read(BReader tested) {
-		result = tested.parse("123", 1);
+	@Test
+	public void readSimpleCase() {
+		read("123");
+		assertNumber("123");
+	}
+
+	@Test
+	public void readLeadingZero() {
+		read("012");
+		assertNumber("12");
+	}
+
+	private void assertNumber(String expected) {
+		assertEquals(expected, result.number.toString());
+	}
+
+	private void read(String line) {
+		result = tested.parse(line, 1);
 	}
 
 }

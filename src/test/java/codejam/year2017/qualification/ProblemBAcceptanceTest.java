@@ -1,28 +1,20 @@
 package codejam.year2017.qualification;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 
-import codejam.Application;
-import codejam.OutputWriter;
-import codejam.year2017.qualification.b.BProblem;
-import codejam.year2017.qualification.b.BReader;
-import codejam.year2017.qualification.b.BResult;
-import codejam.year2017.qualification.b.NumberTidier;
+import codejam.*;
+import codejam.year2017.qualification.b.*;
 
-@Ignore
 public class ProblemBAcceptanceTest {
 	private Application<BProblem, BResult> tested;
 
 	@Before
 	public void setup() {
-		tested = new Application<>(new BReader(), NumberTidier::new, new OutputWriter<BResult>());
+		tested = new Application<>(new BReader(), NumberTidier::new, new OutputWriter());
 	}
 
 	@Test

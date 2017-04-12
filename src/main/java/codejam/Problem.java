@@ -3,8 +3,7 @@ package codejam;
 import java.io.IOException;
 import java.util.function.Supplier;
 
-import codejam.model.CaseProblem;
-import codejam.model.CaseResult;
+import codejam.model.*;
 
 public abstract class Problem<P extends CaseProblem, R extends CaseResult<P>> {
 	protected void solve(String[] args) {
@@ -21,5 +20,7 @@ public abstract class Problem<P extends CaseProblem, R extends CaseResult<P>> {
 
 	protected abstract Supplier<Logic<P, R>> getLogic();
 
-	protected abstract OutputWriter<R> getWriter();
+	protected OutputWriter getWriter() {
+		return new OutputWriter();
+	};
 }

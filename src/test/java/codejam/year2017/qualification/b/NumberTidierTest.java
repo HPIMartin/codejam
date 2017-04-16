@@ -15,6 +15,13 @@ public class NumberTidierTest {
 	}
 
 	@Test
+	public void correctProblem() {
+		arrangeProblem("1");
+		act();
+		assertEquals(problem, result.problem);
+	}
+
+	@Test
 	public void nothingToDo() {
 		arrangeProblem("1");
 		act();

@@ -1,9 +1,12 @@
 apply plugin: 'java'
 apply plugin: 'maven'
 
+defaultTasks 'clean', 'check', 'test', 'compileJava', 'jar'
+
 group = 'de.hpimartin.codejam'
 version = '0.0.1-SNAPSHOT'
 description = ''
+archivesBaseName = 'codejam'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -21,16 +24,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
-defaultTasks 'jar'
-
 jar {
- from {
+ 	from {
         (configurations.runtime).collect {
             it.isDirectory() ? it : zipTree(it)
         }
     }    
     manifest {
-        attributes 'Main-Class': 'codejam.MainClass'
+        attributes (
+        	'Main-Class': 'codejam.MainClass'
+        )
     }
 }
 

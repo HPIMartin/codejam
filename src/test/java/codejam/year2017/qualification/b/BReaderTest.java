@@ -31,12 +31,11 @@ public class BReaderTest {
 		assertNumber("12");
 	}
 
-	private void assertNumber(String expected) {
-		assertEquals(expected, result.number.toString());
-	}
-
 	private void read(String line) {
 		result = tested.parse(line, 1);
 	}
 
+	private void assertNumber(String expected) {
+		assertEquals(expected, result.number.toString());
+	}
 }

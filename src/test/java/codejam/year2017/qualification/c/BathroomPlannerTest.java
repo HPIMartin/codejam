@@ -22,15 +22,8 @@ public class BathroomPlannerTest {
 	}
 
 	@Test
-	public void oneStallOnePerson() {
-		arrangeProblemForStallsAndPeople(1L, 1L);
-		act();
-		assertMaxMin("0 0");
-	}
-
-	@Test
-	public void twoStallsTwoPeople() {
-		arrangeProblemForStallsAndPeople(2L, 2L);
+	public void numberOfStallEqualsNumberOfPeople() {
+		arrangeProblemForStallsAndPeople(3L, 3L);
 		act();
 		assertMaxMin("0 0");
 	}
@@ -71,10 +64,17 @@ public class BathroomPlannerTest {
 	}
 
 	@Test
-	public void elveenStallsFivePeople() {
-		arrangeProblemForStallsAndPeople(10L, 1L);
+	public void bugNo1() {
+		arrangeProblemForStallsAndPeople(4L, 2L);
 		act();
-		assertMaxMin("2 2");
+		assertMaxMin("1 0");
+	}
+
+	@Test
+	public void bugNo2() {
+		arrangeProblemForStallsAndPeople(999L, 511L);
+		act();
+		assertMaxMin("1 0");
 	}
 
 	private void arrangeProblemForStallsAndPeople(long numberOfStalls, long numberOfPeople) {

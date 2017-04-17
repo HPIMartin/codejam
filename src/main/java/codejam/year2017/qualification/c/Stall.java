@@ -1,11 +1,11 @@
 package codejam.year2017.qualification.c;
 
 public class Stall {
-	public final long distanceLeft;
-	public final long distanceRight;
+	public final long leftDistance;
+	public final long rightDistance;
 
 	public Stall(long distanceLeft, long distanceRight) {
-		this.distanceLeft = distanceLeft;
-		this.distanceRight = distanceRight;
+		this.leftDistance = distanceLeft;
+		this.rightDistance = distanceRight;
 	}
 }

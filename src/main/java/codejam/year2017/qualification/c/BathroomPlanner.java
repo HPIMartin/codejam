@@ -5,11 +5,17 @@ import java.util.*;
 import codejam.Logic;
 
 public class BathroomPlanner implements Logic<CProblem, CResult> {
-	private static final int RECURSION_DEPTH_TO_START = 1;
+	private static final int RECURE_STALL_HIERARCHIE_START_INDEX = 0;
+
+	private final CMath math;
 
 	private CProblem problem;
-	private StallTreePosition requiredTreePosition;
+	private StallCoordinates requiredTreePosition;
 	private List<Stall> lastStallRow;
+
+	public BathroomPlanner() {
+		math = new CMath();
+	}
 
 	@Override
 	public CResult apply(CProblem problem) {
@@ -28,26 +34,27 @@ public class BathroomPlanner implements Logic<CProblem, CResult> {
 	}
 
 	private Stall distributePeopleToStalls() {
-		requiredTreePosition = calculateStallTreePosition();
+		requiredTreePosition = getLastStallCoordinates();
 		lastStallRow = new ArrayList<>();
-		addNewStallToTree(RECURSION_DEPTH_TO_START, problem.numberOfStalls);
+
+		recurseNextStall(RECURE_STALL_HIERARCHIE_START_INDEX, problem.numberOfStalls);
+
 		return extractLastStallFromRow();
 	}
 
-	private StallTreePosition calculateStallTreePosition() {
-		int largestPowerOfTwo = 2;
-		while (largestPowerOfTwo <= problem.numberOfPeople)
-			largestPowerOfTwo *= 2;
-		largestPowerOfTwo = largestPowerOfTwo / 2;
+	private StallCoordinates getLastStallCoordinates() {
+		long largestPowerOfTwo = math.largestPowerOfTwoIn(problem.numberOfPeople);
+		double exponent = math.log2(largestPowerOfTwo);
+		long rest = problem.numberOfPeople - largestPowerOfTwo;
 
-		int row = (int) (Math.log(largestPowerOfTwo) / Math.log(2)) + 1;
-		int column = (int) problem.numberOfPeople - largestPowerOfTwo;
+		int row = (int) exponent;
+		int column = (int) rest;
 
-		StallTreePosition position = new StallTreePosition(row, column);
-		return position;
+		return new StallCoordinates(row, column);
 	}
 
-	private void addNewStallToTree(int depth, long distanceToFill) {
+	private void recurseNextStall(int depth, long distanceToFill) {
+		/* TODO tidy up algorithm */
 		Stall newStall = calculateNextStallFor(distanceToFill);
 		if (requiredTreePosition.row == depth) {
 			lastStallRow.add(newStall);
@@ -55,37 +62,34 @@ public class BathroomPlanner implements Logic<CProblem, CResult> {
 		}
 
 		int nextRowsDepth = depth + 1;
-		addNextRowOfStallsToTree(newStall, nextRowsDepth);
+		recurseNextStallRow(newStall, nextRowsDepth);
 	}
 
 	private Stall calculateNextStallFor(long numberOfStalls) {
-		long right = getHalf(numberOfStalls);
-		long left = getRestExcludingOccupiedStall(numberOfStalls, right);
+		long right = math.half(numberOfStalls);
+		long left = getDifferenceExcludingOccupiedStall(numberOfStalls, right);
 		return new Stall(left, right);
 	}
 
-	private long getHalf(long numberOfStalls) {
-		return numberOfStalls / 2;
+	private long getDifferenceExcludingOccupiedStall(long numberOfStalls, long right) {
+		return numberOfStalls - right - 1L;
 	}
 
-	private long getRestExcludingOccupiedStall(long numberOfStalls, long right) {
-		return numberOfStalls - 1 - right;
+	private void recurseNextStallRow(Stall currentNode, int depth) {
+		if (hasRoomToSide(currentNode.leftDistance))
+			recurseNextStall(depth, currentNode.leftDistance);
+
+		if (hasRoomToSide(currentNode.rightDistance))
+			recurseNextStall(depth, currentNode.rightDistance);
 	}
 
-	private void addNextRowOfStallsToTree(Stall currentNode, int depth) {
-		if (hasRoom(currentNode.leftDistance))
-			addNewStallToTree(depth, currentNode.leftDistance);
-		if (hasRoom(currentNode.rightDistance))
-			addNewStallToTree(depth, currentNode.rightDistance);
-	}
-
-	private boolean hasRoom(long distance) {
+	private boolean hasRoomToSide(long distance) {
 		return distance != 0;
 	}
 
 	private CResult toResult(Stall stall) {
-		long maxSpace = Math.max(stall.leftDistance, stall.rightDistance);
-		long minSpace = Math.min(stall.leftDistance, stall.rightDistance);
+		long maxSpace = math.max(stall.leftDistance, stall.rightDistance);
+		long minSpace = math.min(stall.leftDistance, stall.rightDistance);
 		return new CResult(problem, maxSpace, minSpace);
 	}
 

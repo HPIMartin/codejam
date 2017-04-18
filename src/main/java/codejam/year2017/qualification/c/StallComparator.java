@@ -3,7 +3,13 @@ package codejam.year2017.qualification.c;
 import java.util.Comparator;
 
 public class StallComparator implements Comparator<Stall> {
-	public static final StallComparator INSTANCE = new StallComparator();
+	public static final StallComparator INSTANCE = new StallComparator(new CMath());
+
+	private final CMath math;
+
+	private StallComparator(CMath math) {
+		this.math = math;
+	}
 
 	@Override
 	public int compare(Stall stall1, Stall stall2) {
@@ -22,7 +28,7 @@ public class StallComparator implements Comparator<Stall> {
 	}
 
 	private Long getMin(Stall stall) {
-		long min = Math.min(stall.leftDistance, stall.rightDistance);
+		long min = math.min(stall.leftDistance, stall.rightDistance);
 		return wrap(min);
 	}
 
@@ -38,7 +44,7 @@ public class StallComparator implements Comparator<Stall> {
 	}
 
 	private Long getMax(Stall stall) {
-		long max = Math.max(stall.leftDistance, stall.rightDistance);
+		long max = math.max(stall.leftDistance, stall.rightDistance);
 		return wrap(max);
 	}
 

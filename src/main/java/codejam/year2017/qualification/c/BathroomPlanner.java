@@ -53,26 +53,51 @@ public class BathroomPlanner implements Logic<CProblem, CResult> {
 		return new StallCoordinates(row, column);
 	}
 
-	private void recurseNextStall(int depth, long distanceToFill) {
+	private void recurseNextStall2(int index, long emptyStallSpace) {
 		/* TODO tidy up algorithm */
-		Stall newStall = calculateNextStallFor(distanceToFill);
-		if (requiredTreePosition.row == depth) {
+
+		while (true) {
+			/* get next stall */
+			long right = math.half(emptyStallSpace);
+			long left = emptyStallSpace - right - 1L;
+			Stall newStall = new Stall(left, right);
+
+			/* check */
+			if (requiredTreePosition.row == index) {
+				lastStallRow.add(newStall);
+
+			} else {
+				index++;
+
+				/* recurse further if row not yet matched */
+				if (hasRoomToSide(newStall.leftDistance))
+					recurseNextStall(index, newStall.leftDistance);
+
+				if (hasRoomToSide(newStall.rightDistance))
+					recurseNextStall(index, newStall.rightDistance);
+			}
+
+			break;
+		}
+	}
+
+	private void recurseNextStall(int index, long emptyStallSpace) {
+		/* TODO tidy up algorithm */
+
+		/* get next stall */
+		long right = math.half(emptyStallSpace);
+		long left = emptyStallSpace - right - 1L;
+		Stall newStall = new Stall(left, right);
+
+		/* check */
+		if (requiredTreePosition.row == index) {
 			lastStallRow.add(newStall);
 			return;
 		}
 
-		int nextRowsDepth = depth + 1;
-		recurseNextStallRow(newStall, nextRowsDepth);
-	}
-
-	private Stall calculateNextStallFor(long numberOfStalls) {
-		long right = math.half(numberOfStalls);
-		long left = getDifferenceExcludingOccupiedStall(numberOfStalls, right);
-		return new Stall(left, right);
-	}
-
-	private long getDifferenceExcludingOccupiedStall(long numberOfStalls, long right) {
-		return numberOfStalls - right - 1L;
+		/* recurse further if row not yet matched */
+		int nextIndex = index + 1;
+		recurseNextStallRow(newStall, nextIndex);
 	}
 
 	private void recurseNextStallRow(Stall currentNode, int depth) {

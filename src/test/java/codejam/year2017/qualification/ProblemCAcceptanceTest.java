@@ -9,6 +9,7 @@ import org.junit.*;
 import codejam.*;
 import codejam.year2017.qualification.c.*;
 
+@Ignore
 public class ProblemCAcceptanceTest {
 	private Application<CProblem, CResult> tested;
 	private List<String> input;
